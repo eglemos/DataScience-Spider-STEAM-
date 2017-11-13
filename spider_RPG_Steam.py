@@ -26,7 +26,7 @@ class Handler(BaseHandler):
     def index_page(self, response):
         for each in response.doc('a[href^="http"]').items():
             #for each game - collect data (TO DO)
-            if re.match("http://store.steampowered.com/app/\d+", each.attr.href):
+            if re.match("http://store.steampowered.com/app/\d+/\w+", each.attr.href):
                 self.crawl(each.attr.href, callback=self.detail_page)
         #next index page
         index = int(response.url[-1]) + 1
