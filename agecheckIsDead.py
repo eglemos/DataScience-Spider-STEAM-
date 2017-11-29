@@ -10,22 +10,35 @@ class Handler(BaseHandler):
     crawl_config = {
     }
     
-    @every(minutes=24 * 60)
+    @every(minutes=24 * 20)
     def on_start(self):
         self.crawl('http://store.steampowered.com/search/?page=1', callback=self.index_page)
 
     @config(priority=2)
     def detail_page(self, response):
         #Collecting simple data
-        return {
-            "url": response.url,
-            "Title": response.doc('title').text(),
-            "Developer": response.doc('#developers_list > a').text(),
-            "Score": response.doc('.high').text(),
-            "Overall Reviews": response.doc('#review_histogram_rollup_section .positive').text(),
-            "Price": response.doc('.price').text()
-        }
-
+        if response.doc('.game_purchase_action > div > .price').text():
+            return {
+                "url": response.url,
+                "title": response.doc('.apphub_AppName').text(),
+                "developer": response.doc('#developers_list > a').text(),
+                "score": response.doc('.high').text(),
+                "overall_Reviews": response.doc('#review_histogram_rollup_section span.game_review_summary').text(),
+                "price": response.doc('.game_purchase_action > div > .price').text().split(' ')[1].replace(',','.'),
+                "release_date": response.doc('.date').text(),
+                "genre": response.doc('.underlined_links a').text().split(' ')[0]
+            }
+        else:
+            return {
+                "url": response.url,
+                "title": response.doc('.apphub_AppName').text(),
+                "developer": response.doc('#developers_list > a').text(),
+                "score": response.doc('.high').text(),
+                "overall_Reviews": response.doc('#review_histogram_rollup_section span.game_review_summary').text(),
+                "price": response.doc('.discount_final_price').text().split(' ')[1].replace(',','.'),
+                "release_date": response.doc('.date').text(),
+                "genre": response.doc('.underlined_links a').text().split(' ')[0]
+            }
 
     def filter_page(self, response):
         #Agecheck1 - click the button
