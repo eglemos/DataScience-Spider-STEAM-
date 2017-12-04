@@ -16,7 +16,6 @@ class Handler(BaseHandler):
 
     @config(priority=2)
     def detail_page(self, response):
-        #Collecting simple data
         if response.doc('.game_purchase_action > div > .price').text():
             return {
                 "url": response.url,
@@ -28,7 +27,7 @@ class Handler(BaseHandler):
                 "release_date": response.doc('.date').text(),
                 "genre": response.doc('.underlined_links a').text().split(' ')[0]
             }
-        else:
+        elif response.doc('.discount_final_price').text():
             return {
                 "url": response.url,
                 "title": response.doc('.apphub_AppName').text(),
@@ -39,8 +38,20 @@ class Handler(BaseHandler):
                 "release_date": response.doc('.date').text(),
                 "genre": response.doc('.underlined_links a').text().split(' ')[0]
             }
+        else:
+            return {
+                "url": response.url,
+                "title": response.doc('.apphub_AppName').text(),
+                "developer": response.doc('#developers_list > a').text(),
+                "score": response.doc('.high').text(),
+                "overall_Reviews": response.doc('#review_histogram_rollup_section span.game_review_summary').text(),
+                "price": 'None',
+                "release_date": response.doc('.date').text(),
+                "genre": response.doc('.underlined_links a').text().split(' ')[0]
+            }
 
     def filter_page(self, response):
+        
         #Agecheck1 - click the button
         if re.match("http://store.steampowered.com/app/\d+/age\w+", response.url):
             self.crawl(response.url,
@@ -59,7 +70,7 @@ class Handler(BaseHandler):
         #Normal access
         else:
             self.crawl(response.url, callback=self.detail_page)
-            
+        
     #iterates over steam's main page (no tags)
     #that will take a while...
     def index_page(self, response):
