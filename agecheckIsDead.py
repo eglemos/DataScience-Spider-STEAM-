@@ -10,9 +10,9 @@ class Handler(BaseHandler):
     crawl_config = {
     }
     
-    @every(minutes=24 * 20)
+    @every(minutes=2)
     def on_start(self):
-        self.crawl('http://store.steampowered.com/search/?page=1', callback=self.index_page)
+        self.crawl('http://store.steampowered.com/search/?tags=122&page=1', callback=self.index_page)
 
     @config(priority=2)
     def detail_page(self, response):
@@ -67,6 +67,11 @@ class Handler(BaseHandler):
             if re.match("http://store.steampowered.com/app/\d+/\w+", each.attr.href):
                 self.crawl(each.attr.href, callback=self.filter_page)
         #next index page
-        index = int(response.url[-1]) + 1
-        response.url  = response.url[:-1] + str(index)
-        self.crawl(response.url, callback=self.index_page)
+        index = int(response.url[-1])
+        for each in response.doc('.search_pagination_right > a.pagebtn').items():
+            index2 = int(each.attr.href[-1])
+            if index < index2:
+                url = each.attr.href
+                index = index2
+        
+        self.crawl(url, callback=self.index_page)
