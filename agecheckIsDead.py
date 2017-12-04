@@ -49,7 +49,7 @@ class Handler(BaseHandler):
                    }
                    """,callback=self.detail_page)
         #Agecheck2 - Select birthday
-        if re.match("http://store.steampowered.com/agecheck/app/\d+", response.url):
+        elif re.match("http://store.steampowered.com/agecheck/app/\d+", response.url):
             self.crawl(response.url,
                                fetch_type='js', js_script="""function() {
                                $J('#ageYear').val(1980);
