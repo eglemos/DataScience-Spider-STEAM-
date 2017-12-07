@@ -5,6 +5,7 @@
 
 from pyspider.libs.base_handler import *
 import re
+tag = '8'
 
 class Handler(BaseHandler):
     crawl_config = {
@@ -12,7 +13,7 @@ class Handler(BaseHandler):
     
     @every(minutes=2)
     def on_start(self):
-        self.crawl('http://store.steampowered.com/search/?tags=122&page=1', callback=self.index_page)
+        self.crawl('http://store.steampowered.com/search/?tags='+ tag +'&page=1', callback=self.index_page)
 
     @config(priority=2)
     def detail_page(self, response):
@@ -116,6 +117,6 @@ class Handler(BaseHandler):
         s = response.url.split('page=')
         url = s[0] + 'page=' + str(int(s[1]) + 1)
         
-        if response.url == 'http://store.steampowered.com/search/?tags=122&page=1' or cont > 1:
+        if response.url == 'http://store.steampowered.com/search/?tags='+ tag +'&page=1'or cont > 1:
                 self.crawl(url, callback=self.index_page)
         
