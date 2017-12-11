@@ -6,7 +6,6 @@
 from pyspider.libs.base_handler import *
 import re
 tag = '9'
-revs = "(//*[@id='review_histogram_rollup_section'])/div/div/span[offset=2]"
 
 class Handler(BaseHandler):
     crawl_config = {
@@ -25,7 +24,6 @@ class Handler(BaseHandler):
                 "developer": response.doc('#developers_list > a').text(),
                 "score": response.doc('.high').text(),
                 "overall_Reviews": response.doc('#review_histogram_rollup_section span.game_review_summary').text(),
-                "reviews": response.doc(revs).text(),
                 "price": response.doc('.game_purchase_action > div > .price').text().split(' ')[1].replace(',','.'),
                 "release_date": response.doc('.date').text(),
                 "genre": response.doc('.underlined_links a').text().split(' ')[0]
@@ -37,7 +35,6 @@ class Handler(BaseHandler):
                 "developer": response.doc('#developers_list > a').text(),
                 "score": response.doc('.high').text(),
                 "overall_Reviews": response.doc('#review_histogram_rollup_section span.game_review_summary').text(),
-                "reviews": response.doc(revs).text(),
                 "price": response.doc('.discount_final_price').text().split(' ')[1].replace(',','.'),
                 "release_date": response.doc('.date').text(),
                 "genre": response.doc('.underlined_links a').text().split(' ')[0]
@@ -49,7 +46,6 @@ class Handler(BaseHandler):
                 "developer": response.doc('#developers_list > a').text(),
                 "score": response.doc('.high').text(),
                 "overall_Reviews": response.doc('#review_histogram_rollup_section span.game_review_summary').text(),
-                "reviews": response.doc(revs).text(),
                 "price": 'None',
                 "release_date": response.doc('.date').text(),
                 "genre": response.doc('.underlined_links a').text().split(' ')[0]
@@ -81,7 +77,6 @@ class Handler(BaseHandler):
                     "developer": response.doc('#developers_list > a').text(),
                     "score": response.doc('.high').text(),
                     "overall_Reviews": response.doc('#review_histogram_rollup_section span.game_review_summary').text(),
-                    "reviews": response.doc(revs).text(),
                     "price": response.doc('.game_purchase_action > div > .price').text().split(' ')[1].replace(',','.'),
                     "release_date": response.doc('.date').text(),
                     "genre": response.doc('.underlined_links a').text().split(' ')[0]
@@ -93,7 +88,6 @@ class Handler(BaseHandler):
                     "developer": response.doc('#developers_list > a').text(),
                     "score": response.doc('.high').text(),
                     "overall_Reviews": response.doc('#review_histogram_rollup_section span.game_review_summary').text(),
-                    "reviews": response.doc(revs).text(),
                     "price": response.doc('.discount_final_price').text().split(' ')[1].replace(',','.'),
                     "release_date": response.doc('.date').text(),
                     "genre": response.doc('.underlined_links a').text().split(' ')[0]
@@ -105,7 +99,6 @@ class Handler(BaseHandler):
                     "developer": response.doc('#developers_list > a').text(),
                     "score": response.doc('.high').text(),
                     "overall_Reviews": response.doc('#review_histogram_rollup_section span.game_review_summary').text(),
-                    "reviews": response.doc(revs).text(),
                     "price": 'None',
                     "release_date": response.doc('.date').text(),
                     "genre": response.doc('.underlined_links a').text().split(' ')[0]
