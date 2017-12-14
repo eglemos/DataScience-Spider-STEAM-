@@ -1,3 +1,4 @@
 * O quanto o score implica nas vendas do jogo?
 * Existem diversos jogos que as pessoas compram e nunca jogam? Ou jogam muito pouco?
     - Talvez isso se deva ao fato do jogo estar em promoção numa summer sale por exemplo.
+* 
