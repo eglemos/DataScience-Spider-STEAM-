@@ -1,4 +1,10 @@
 * O quanto o score implica nas vendas do jogo?
+* O quanto o score implica no preço do jogo?
+* O quanto o preço implica na compra dos jogos?
+* Quão diferente são o metascore do userscore
+* Para quem o jogador liga mais? Metascore ou userscore?
 * Existem diversos jogos que as pessoas compram e nunca jogam? Ou jogam muito pouco?
     - Talvez isso se deva ao fato do jogo estar em promoção numa summer sale por exemplo.
-* 
+    - Para responder a essa pergunta, precisaríamos da data de aquisição do jogo
+* A data de release tem alguma relação com o score do jogo?
+* Os jogos pioraram com o passar dos anos? Ou ficamos mais críticos?
